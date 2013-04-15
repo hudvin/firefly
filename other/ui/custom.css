@@ -1,0 +1,17 @@
+.search-bar {
+    text-align: center; /* centers inline and inline-block children */
+}
+.search-bar .search-query,
+.search-bar .btn-primary {
+    display: inline-block; /* allows for heights to be set */
+}
+.search-bar .search-query {
+    height: 30px;
+}
+.search-bar .btn-primary {
+    height: 40px;
+}
+
+.input-append button.add-on {
+    height: inherit !important;
+}
