@@ -13,7 +13,7 @@ class FileService implements InitializingBean {
 
     def mongo
 
-    def gridfs
+    def GridFS gridfs
 
     void afterPropertiesSet() {
         this.mongoSettings = grailsApplication.config.mongodb

@@ -9,36 +9,30 @@ class UploaderController {
 
     def upload = {
         Collection result = []
-//        Binary binary
         MultipartHttpServletRequest mpr = (MultipartHttpServletRequest) request;
         mpr.getFileNames().each {
-          def file =   fileService.saveFile(mpr.getFile(it))
-            //binary = Binary.storeMyFileMethod(mpr.getFile(it))
-            result << [name: file.filename, size: file.length]
+            def file = fileService.saveFile(mpr.getFile(it))
+            result << [url: "http://localhost:8080/firefly/uploader/file?" + file.filename, name: file.filename,
+                    size: file.length, delete_url: "http://localhost:8080/firefly/delete",
+                    delete_type: "DELETE"]
         }
-
         def responseData = [
                 'files': result
         ]
         println(responseData)
         render responseData as JSON
-
-
-//        def t=  render(contentType: "text/json") {
-//            files = [
-//                    result
-//            ]
-//        }
-//
-//        println(t)
-//        t
-
-
-//
-//        def t =  result as JSON
-//        println(t)
-//        render t
     }
+
+    def file = {
+        def filename = params.file
+        println filename
+        def file = fileService.retrieveFile(filename)
+        if (file != null) {
+            response.outputStream << file.getInputStream()
+            response.contentType = file.getContentType()
+        } else render "File not found"
+    }
+
 
     def index() {}
 }
