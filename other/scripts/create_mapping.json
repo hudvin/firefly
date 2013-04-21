@@ -1,0 +1,13 @@
+{
+   "attachment" : {
+    "properties" : {
+      "file" : {
+        "type" : "attachment",
+        "fields" : {
+          "title" : { "store" : "yes" },
+          "file" : { "term_vector":"with_positions_offsets", "store":"yes" }
+        }
+      }
+    }
+  }
+}

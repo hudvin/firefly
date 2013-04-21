@@ -1,0 +1,3 @@
+git push both
+git fetch both
+
