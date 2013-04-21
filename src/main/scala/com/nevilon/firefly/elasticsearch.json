@@ -1,0 +1,13 @@
+{
+       "docs":{
+               "properties" : {
+                       "contents" : {
+                               "type" : "attachment",
+                               "fields" : {
+                                       "contents" : {"store" : "no"}
+                               }
+                       },
+                       "lastModified": { "type" : "long", "index" : "analyzed", "store" : "no"}
+               }
+       }
+}
