@@ -2,6 +2,8 @@ package com.firefly.ui
 
 class Account {
 
+    static hasMany = [lists:Paper]
+
 	transient springSecurityService
 
 	String username
@@ -37,4 +39,8 @@ class Account {
 	protected void encodePassword() {
 		password = springSecurityService.encodePassword(password)
 	}
+
+    String toString() {
+        return username
+    }
 }
