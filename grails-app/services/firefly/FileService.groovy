@@ -1,5 +1,6 @@
 package firefly
 
+import com.firefly.ui.Paper
 import com.mongodb.BasicDBObject
 import com.mongodb.Mongo
 import com.mongodb.gridfs.GridFS
@@ -46,11 +47,13 @@ class FileService implements InitializingBean {
         try {
             if (gfsFile == null) {
                 println("not found")
-                return save(inputStream, contentType, filename)
+                gfsFile = save(inputStream, contentType, filename)
+                def paper = new Paper(gfsId: gfsFile.getId().toString(), filename: gfsFile.filename, filesize: gfsFile.length)
+                paper.save(true, failOnError: true)
             } else {
                 println("found")
-                return gfsFile
             }
+            return gfsFile
         } catch (Exception ex) {
             ex.printStackTrace()
             throw ex
