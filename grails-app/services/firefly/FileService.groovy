@@ -1,8 +1,11 @@
 package firefly
 
+import com.mongodb.BasicDBObject
 import com.mongodb.Mongo
 import com.mongodb.gridfs.GridFS
 import com.mongodb.gridfs.GridFSFile
+import org.bson.types.ObjectId
+import org.codehaus.groovy.grails.io.support.IOUtils
 import org.springframework.beans.factory.InitializingBean
 
 class FileService implements InitializingBean {
@@ -30,19 +33,30 @@ class FileService implements InitializingBean {
         def contentType = file.getContentType()
         def filename = file.getOriginalFilename()
 
+        //create tmp file and save uploaded file to it
+        def tmpFile = File.createTempFile("upload", null);
+        IOUtils.copy(inputStream, new FileOutputStream(tmpFile))
+        //  tmpFile.delete();
+        //calculate md5 hash
+        def fis = new FileInputStream(tmpFile)
+        def md5 = org.apache.commons.codec.digest.DigestUtils.md5Hex(fis)
+
+        inputStream = new FileInputStream(tmpFile)
+        def gfsFile = gridfs.findOne(new BasicDBObject("md5", md5))
         try {
-            if (gridfs.findOne(filename) == null) {
+            if (gfsFile == null) {
+                println("not found")
                 return save(inputStream, contentType, filename)
             } else {
-                println "Removing old file and uploading new file"
-                gridfs.remove(filename)
-                return save(inputStream, contentType, filename)
+                println("found")
+                return gfsFile
             }
         } catch (Exception ex) {
             ex.printStackTrace()
             throw ex
+        } finally {
+            tmpFile.delete()
         }
-        return null
     }
 
     def GridFSFile save(inputStream, contentType, filename) {
@@ -54,7 +68,7 @@ class FileService implements InitializingBean {
     }
 
     def retrieveFile(String filename) {
-        return gridfs.findOne(filename)
+        return gridfs.findOne(new ObjectId(filename))
     }
 
     def deleteFile(String filename) {

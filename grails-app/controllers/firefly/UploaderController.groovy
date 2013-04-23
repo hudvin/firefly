@@ -12,7 +12,7 @@ class UploaderController {
         MultipartHttpServletRequest mpr = (MultipartHttpServletRequest) request;
         mpr.getFileNames().each {
             def file = fileService.saveFile(mpr.getFile(it))
-            result << [url: "http://localhost:8080/firefly/uploader/file?" + file.filename, name: file.filename,
+            result << [url: "http://localhost:8080/firefly/uploader/file?id=" + file.id, name: file.filename,
                     size: file.length, delete_url: "http://localhost:8080/firefly/delete",
                     delete_type: "DELETE"]
         }
@@ -24,7 +24,7 @@ class UploaderController {
     }
 
     def file = {
-        def filename = params.file
+        def filename = params.id
         println filename
         def file = fileService.retrieveFile(filename)
         if (file != null) {
