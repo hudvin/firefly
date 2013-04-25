@@ -3085,10 +3085,14 @@ document.addEventListener('DOMContentLoaded', function webViewerLoad(evt) {
   var params = PDFView.parseQueryString(document.location.search.substring(1));
 
 //#if !(FIREFOX || MOZCENTRAL)
-  var file = params.file || DEFAULT_URL;
+    var file = params.file || DEFAULT_URL;
 //#else
 //var file = window.location.toString()
 //#endif
+
+    var file = outerdata;
+    document.getElementById('openFile').setAttribute('hidden', 'true');
+
 
 //#if !(FIREFOX || MOZCENTRAL)
   if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
