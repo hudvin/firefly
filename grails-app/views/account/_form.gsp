@@ -42,14 +42,6 @@
 	<g:checkBox name="enabled" value="${accountInstance?.enabled}" />
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'lists', 'error')} ">
-	<label for="lists">
-		<g:message code="account.lists.label" default="Lists" />
-		
-	</label>
-	<g:select name="lists" from="${com.firefly.ui.Paper.list()}" multiple="multiple" optionKey="id" size="5" value="${accountInstance?.lists*.id}" class="many-to-many"/>
-</div>
-
 <div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'passwordExpired', 'error')} ">
 	<label for="passwordExpired">
 		<g:message code="account.passwordExpired.label" default="Password Expired" />

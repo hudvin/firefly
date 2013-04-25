@@ -2,9 +2,7 @@ package com.firefly.ui
 
 class Account {
 
-    static hasMany = [lists:Paper]
-
-	transient springSecurityService
+   transient springSecurityService
 
 	String username
 	String password

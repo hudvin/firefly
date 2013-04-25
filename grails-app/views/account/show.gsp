@@ -68,17 +68,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${accountInstance?.lists}">
-				<li class="fieldcontain">
-					<span id="lists-label" class="property-label"><g:message code="account.lists.label" default="Lists" /></span>
-					
-						<g:each in="${accountInstance.lists}" var="l">
-						<span class="property-value" aria-labelledby="lists-label"><g:link controller="paper" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${accountInstance?.passwordExpired}">
 				<li class="fieldcontain">
 					<span id="passwordExpired-label" class="property-label"><g:message code="account.passwordExpired.label" default="Password Expired" /></span>

@@ -4,6 +4,9 @@ class List {
 
     static belongsTo = [account: Account]
 
+    static hasMany = [lists: Paper]
+
+
     String name
     String description
 

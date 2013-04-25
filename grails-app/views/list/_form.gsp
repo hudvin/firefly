@@ -26,3 +26,11 @@
 	<g:select id="account" name="account.id" from="${com.firefly.ui.Account.list()}" optionKey="id" required="" value="${listInstance?.account?.id}" class="many-to-one"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: listInstance, field: 'lists', 'error')} ">
+	<label for="lists">
+		<g:message code="list.lists.label" default="Lists" />
+		
+	</label>
+	<g:select name="lists" from="${com.firefly.ui.Paper.list()}" multiple="multiple" optionKey="id" size="5" value="${listInstance?.lists*.id}" class="many-to-many"/>
+</div>
+

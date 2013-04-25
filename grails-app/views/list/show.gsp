@@ -50,6 +50,17 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${listInstance?.lists}">
+				<li class="fieldcontain">
+					<span id="lists-label" class="property-label"><g:message code="list.lists.label" default="Lists" /></span>
+					
+						<g:each in="${listInstance.lists}" var="l">
+						<span class="property-value" aria-labelledby="lists-label"><g:link controller="paper" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link></span>
+						</g:each>
+					
+				</li>
+				</g:if>
+			
 			</ol>
 			<g:form>
 				<fieldset class="buttons">
