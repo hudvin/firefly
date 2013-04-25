@@ -44,9 +44,7 @@ var FindStates = {
   FIND_PENDING: 3
 };
 
-//#if (FIREFOX || MOZCENTRAL || B2G || GENERIC || CHROME)
-//PDFJS.workerSrc = '../build/pdf.js';
-//#endif
+  PDFJS.workerSrc = '../build/pdf.js';
 
 var mozL10n = document.mozL10n || document.webL10n;
 
@@ -140,16 +138,12 @@ var ProgressBar = (function ProgressBarClosure() {
   return ProgressBar;
 })();
 
-//#if FIREFOX || MOZCENTRAL
-//#include firefoxcom.js
-//#endif
 
 // Settings Manager - This is a utility for saving settings
 // First we see if localStorage is available
 // If not, we use FUEL in FF
 // Use asyncStorage for B2G
 var Settings = (function SettingsClosure() {
-//#if !(FIREFOX || MOZCENTRAL || B2G)
   var isLocalStorageEnabled = (function localStorageEnabledTest() {
     // Feature test as per http://diveintohtml5.info/storage.html
     // The additional localStorage call is to get around a FF quirk, see
@@ -161,7 +155,6 @@ var Settings = (function SettingsClosure() {
       return false;
     }
   })();
-//#endif
 
   function Settings(fingerprint) {
     this.fingerprint = fingerprint;
@@ -172,18 +165,10 @@ var Settings = (function SettingsClosure() {
       this.initializedPromise.resolve();
     }).bind(this);
 
-//#if B2G
-//  asyncStorage.getItem('database', resolvePromise);
-//#endif
 
-//#if FIREFOX || MOZCENTRAL
-//  resolvePromise(FirefoxCom.requestSync('getDatabase', null));
-//#endif
 
-//#if !(FIREFOX || MOZCENTRAL || B2G)
     if (isLocalStorageEnabled)
       resolvePromise(localStorage.getItem('database'));
-//#endif
   }
 
   Settings.prototype = {
@@ -215,18 +200,10 @@ var Settings = (function SettingsClosure() {
       file[name] = val;
       var database = JSON.stringify(this.database);
 
-//#if B2G
-//    asyncStorage.setItem('database', database);
-//#endif
 
-//#if FIREFOX || MOZCENTRAL
-//    FirefoxCom.requestSync('setDatabase', database);
-//#endif
 
-//#if !(FIREFOX || MOZCENTRAL || B2G)
       if (isLocalStorageEnabled)
         localStorage.setItem('database', database);
-//#endif
     },
 
     get: function settingsGet(name, defaultValue) {
@@ -893,10 +870,6 @@ var PDFView = {
 
   get supportsIntegratedFind() {
     var support = false;
-//#if !(FIREFOX || MOZCENTRAL)
-//#else
-//  support = FirefoxCom.requestSync('supportsIntegratedFind');
-//#endif
     Object.defineProperty(this, 'supportsIntegratedFind', { value: support,
                                                             enumerable: true,
                                                             configurable: true,
@@ -906,10 +879,6 @@ var PDFView = {
 
   get supportsDocumentFonts() {
     var support = true;
-//#if !(FIREFOX || MOZCENTRAL)
-//#else
-//  support = FirefoxCom.requestSync('supportsDocumentFonts');
-//#endif
     Object.defineProperty(this, 'supportsDocumentFonts', { value: support,
                                                            enumerable: true,
                                                            configurable: true,
@@ -919,10 +888,6 @@ var PDFView = {
 
   get supportsDocumentColors() {
     var support = true;
-//#if !(FIREFOX || MOZCENTRAL)
-//#else
-//  support = FirefoxCom.requestSync('supportsDocumentColors');
-//#endif
     Object.defineProperty(this, 'supportsDocumentColors', { value: support,
                                                             enumerable: true,
                                                             configurable: true,
@@ -1002,9 +967,6 @@ var PDFView = {
 
   setTitle: function pdfViewSetTitle(title) {
     document.title = title;
-//#if B2G
-//  document.getElementById('activityTitle').textContent = title;
-//#endif
   },
 
   // TODO(mack): This function signature should really be pdfViewOpen(url, args)
@@ -1054,10 +1016,6 @@ var PDFView = {
           // change error message also for other builds
           var loadingErrorMessage = mozL10n.get('invalid_file_error', null,
                                         'Invalid or corrupted PDF file.');
-//#if B2G
-//        window.alert(loadingErrorMessage);
-//        return window.close();
-//#endif
         }
 
         if (exception && exception.name === 'MissingPDFException') {
@@ -1065,10 +1023,6 @@ var PDFView = {
           var loadingErrorMessage = mozL10n.get('missing_file_error', null,
                                         'Missing PDF file.');
 
-//#if B2G
-//        window.alert(loadingErrorMessage);
-//        return window.close();
-//#endif
         }
 
         var moreInfo = {
@@ -1088,7 +1042,6 @@ var PDFView = {
       FirefoxCom.request('download', { originalUrl: url });
     }
     var url = this.url.split('#')[0];
-//#if !(FIREFOX || MOZCENTRAL)
 
     var a = document.createElement('a');
 
@@ -1126,49 +1079,10 @@ var PDFView = {
     } else {
       window.open(url, '_parent');
     }
-//#else
-//  // Document isn't ready just try to download with the url.
-//  if (!this.pdfDocument) {
-//    noData();
-//    return;
-//  }
-//  this.pdfDocument.getData().then(
-//    function getDataSuccess(data) {
-//      var blob = PDFJS.createBlob(data.buffer, 'application/pdf');
-//      var blobUrl = window.URL.createObjectURL(blob);
-//
-//      FirefoxCom.request('download', { blobUrl: blobUrl, originalUrl: url },
-//        function response(err) {
-//          if (err) {
-//            // This error won't really be helpful because it's likely the
-//            // fallback won't work either (or is already open).
-//            PDFView.error('PDF failed to download.');
-//          }
-//          window.URL.revokeObjectURL(blobUrl);
-//        }
-//      );
-//    },
-//    noData // Error occurred try downloading with just the url.
-//  );
-//#endif
   },
 
   fallback: function pdfViewFallback() {
-//#if !(FIREFOX || MOZCENTRAL)
-//  return;
-//#else
-//  // Only trigger the fallback once so we don't spam the user with messages
-//  // for one PDF.
-//  if (this.fellback)
-//    return;
-//  this.fellback = true;
-//  var url = this.url.split('#')[0];
-//  FirefoxCom.request('fallback', url, function response(download) {
-//    if (!download)
-//      return;
-//    PDFView.download();
-//  });
-//#endif
+    return;
   },
 
   navigateTo: function pdfViewNavigateTo(dest) {
@@ -1230,11 +1144,7 @@ var PDFView = {
    * @param {String} anchor The anchor hash include the #.
    */
   getAnchorUrl: function getAnchorUrl(anchor) {
-//#if !(FIREFOX || MOZCENTRAL)
     return anchor;
-//#else
-//  return this.url.split('#')[0] + anchor;
-//#endif
   },
 
   /**
@@ -1285,7 +1195,6 @@ var PDFView = {
       }
     }
 
-//#if !(FIREFOX || MOZCENTRAL)
     var errorWrapper = document.getElementById('errorWrapper');
     errorWrapper.removeAttribute('hidden');
 
@@ -1315,10 +1224,6 @@ var PDFView = {
     errorMoreInfo.value = moreInfoText;
 
     errorMoreInfo.rows = moreInfoText.split('\n').length - 1;
-//#else
-//  console.error(message + '\n' + moreInfoText);
-//  this.fallback();
-//#endif
   },
 
   progress: function pdfViewProgress(level) {
@@ -2318,10 +2223,6 @@ var PageView = function pageView(container, id, scale,
     if (outputScale.scaled) {
       ctx.scale(outputScale.sx, outputScale.sy);
     }
-//#if (FIREFOX || MOZCENTRAL)
-//  // Checking if document fonts are used only once
-//  var checkIfDocumentFontsUsed = !PDFView.pdfDocument.embeddedFontsUsed;
-//#endif
 
     // Rendering area
 
@@ -2339,21 +2240,6 @@ var PageView = function pageView(container, id, scale,
         delete self.loadingIconDiv;
       }
 
-//#if (FIREFOX || MOZCENTRAL)
-//    if (checkIfDocumentFontsUsed && PDFView.pdfDocument.embeddedFontsUsed &&
-//        !PDFView.supportsDocumentFonts) {
-//      console.error(mozL10n.get('web_fonts_disabled', null,
-//        'Web fonts are disabled: unable to use embedded PDF fonts.'));
-//      PDFView.fallback();
-//    }
-//    if (self.textLayer && self.textLayer.textDivs &&
-//        self.textLayer.textDivs.length > 0 &&
-//        !PDFView.supportsDocumentColors) {
-//      console.error(mozL10n.get('web_colors_disabled', null,
-//        'Web colors are disabled.'));
-//      PDFView.fallback();
-//    }
-//#endif
       if (error) {
         PDFView.error(mozL10n.get('rendering_error', null,
           'An error occurred while rendering the page.'), error);
@@ -3084,25 +2970,14 @@ document.addEventListener('DOMContentLoaded', function webViewerLoad(evt) {
   PDFView.initialize();
   var params = PDFView.parseQueryString(document.location.search.substring(1));
 
-//#if !(FIREFOX || MOZCENTRAL)
-    var file = params.file || DEFAULT_URL;
-//#else
-//var file = window.location.toString()
-//#endif
-
     var file = outerdata;
-    document.getElementById('openFile').setAttribute('hidden', 'true');
+ // var file = params.file || DEFAULT_URL;
 
-
-//#if !(FIREFOX || MOZCENTRAL)
   if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
     document.getElementById('openFile').setAttribute('hidden', 'true');
   } else {
     document.getElementById('fileInput').value = null;
   }
-//#else
-//document.getElementById('openFile').setAttribute('hidden', 'true');
-//#endif
 
   // Special debugging flags in the hash section of the URL.
   var hash = document.location.hash.substring(1);
@@ -3120,12 +2995,10 @@ document.addEventListener('DOMContentLoaded', function webViewerLoad(evt) {
     PDFJS.disableAutoFetch = (hashParams['disableAutoFetch'] === 'true');
   }
 
-//#if !(FIREFOX || MOZCENTRAL)
   var locale = navigator.language;
   if ('locale' in hashParams)
     locale = hashParams['locale'];
   mozL10n.setLanguage(locale);
-//#endif
 
   if ('textLayer' in hashParams) {
     switch (hashParams['textLayer']) {
@@ -3141,11 +3014,7 @@ document.addEventListener('DOMContentLoaded', function webViewerLoad(evt) {
     }
   }
 
-//#if !(FIREFOX || MOZCENTRAL)
   if ('pdfBug' in hashParams) {
-//#else
-//if ('pdfBug' in hashParams && FirefoxCom.requestSync('pdfBugEnabled')) {
-//#endif
     PDFJS.pdfBug = true;
     var pdfBug = hashParams['pdfBug'];
     var enabled = pdfBug.split(',');
@@ -3283,15 +3152,8 @@ document.addEventListener('DOMContentLoaded', function webViewerLoad(evt) {
       PDFView.rotatePages(90);
     });
 
-//#if (FIREFOX || MOZCENTRAL)
-//PDFView.setTitleUsingUrl(file);
-//PDFView.initPassiveLoading();
-//return;
-//#endif
 
-//#if !B2G
   PDFView.open(file, 0);
-//#endif
 }, true);
 
 function updateViewarea() {
@@ -3704,13 +3566,4 @@ window.addEventListener('afterprint', function afterPrint(evt) {
   });
 })();
 
-//#if B2G
-//window.navigator.mozSetMessageHandler('activity', function(activity) {
-//  var url = activity.source.data.url;
-//  PDFView.open(url);
-//  var cancelButton = document.getElementById('activityClose');
-//  cancelButton.addEventListener('click', function() {
-//    activity.postResult('close');
-//  });
-//});
-//#endif
+
