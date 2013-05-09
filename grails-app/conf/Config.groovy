@@ -95,6 +95,8 @@ grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.firefly.ui.A
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.firefly.ui.AccountRole'
 grails.plugins.springsecurity.authority.className = 'com.firefly.ui.Role'
 grails.plugins.springsecurity.ui.password.validationRegex = '^.*'
+grails.plugins.springsecurity.logout.afterLogoutUrl = '/index'
+grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/index'
 
 grails {
    mail {

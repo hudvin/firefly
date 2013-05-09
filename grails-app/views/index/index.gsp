@@ -14,8 +14,9 @@
     <meta name="layout" content="main"/>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'custom.css')}" type="text/css">
     <r:require modules="bootstrap"/>
-    <r:require modules="bootstrap-responsive-css" />
+    <r:require modules="bootstrap-responsive-css"/>
 </head>
+
 <body>
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -26,6 +27,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="brand" href="#">Project name</a>
+
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="active"><a href="#">Home</a></li>
@@ -44,14 +46,23 @@
                         </ul>
                     </li>
                 </ul>
+
                 <form class="navbar-form pull-right">
-                    <a class="btn btn-success" href="${createLink(controller:'login', action:'auth')}">Sign in</a>
-                    <a class="btn btn-success" href="${createLink(controller:'register', action:'index')}">Register</a>
+                    <sec:ifNotLoggedIn>
+                        <a class="btn btn-success" href="${createLink(controller: 'login', action: 'auth')}">Sign in</a>
+                        <a class="btn btn-success"
+                           href="${createLink(controller: 'register', action: 'index')}">Register</a>
+                    </sec:ifNotLoggedIn>
+                    <sec:ifLoggedIn>
+                        <g:set var="username" value="${sec.loggedInUserInfo(field: 'username')}"/>
+                        <a class="btn btn-success" href="#">${username}</a>
+                        <a class="btn btn-success" href="${createLink(controller: 'logout', action: 'index',)}">Logout</a>
+                    </sec:ifLoggedIn>
 
 
-                    %{--<input class="span2" type="text" placeholder="Email">--}%
-                    %{--<input class="span2" type="password" placeholder="Password">--}%
-                    %{--<button type="submit" class="btn">Sign in</button>--}%
+                %{--<input class="span2" type="text" placeholder="Email">--}%
+                %{--<input class="span2" type="password" placeholder="Password">--}%
+                %{--<button type="submit" class="btn">Sign in</button>--}%
                 </form>
             </div><!--/.nav-collapse -->
         </div>
@@ -59,13 +70,12 @@
 </div>
 
 <form class="form-search search-bar">
-  <div class="input-append">
-    <input type="text" class="search-query" placeholder="Enter your address here...">
-    <button type="submit" class="btn btn-primary">
-    Search <i class="icon-search icon-white"></i></button>
-  </div>
+    <div class="input-append">
+        <input type="text" class="search-query" placeholder="Enter your address here...">
+        <button type="submit" class="btn btn-primary">
+            Search <i class="icon-search icon-white"></i></button>
+    </div>
 </form>
-
 
 
 <div class="span9 well offset2">
@@ -74,30 +84,30 @@
         <div class="input-append">
 
             <input type="text" class="search-query span7" placeholder="Enter your address here...">
-        <button type="submit" class="btn btn-primary">
-            Search <i class="icon-search icon-white"></i></button>
-         </div>
+            <button type="submit" class="btn btn-primary">
+                Search <i class="icon-search icon-white"></i></button>
+        </div>
     </form>
 </div>
 
 
 %{--<div class="container">--}%
-	%{--<div class="row">--}%
-		%{--<div class="span4 offset4 well">--}%
-			%{--<legend>Please Sign In</legend>--}%
-          	%{--<div class="alert alert-error">--}%
-                %{--<a class="close" data-dismiss="alert" href="#">×</a>Incorrect Username or Password!--}%
-            %{--</div>--}%
-			%{--<form method="POST" action="" accept-charset="UTF-8">--}%
-			%{--<input type="text" id="username" class="span4" name="username" placeholder="Username">--}%
-			%{--<input type="password" id="password" class="span4" name="password" placeholder="Password">--}%
-            %{--<label class="checkbox">--}%
-            	%{--<input type="checkbox" name="remember" value="1"> Remember Me--}%
-            %{--</label>--}%
-			%{--<button type="submit" name="submit" class="btn btn-info btn-block">Sign in</button>--}%
-			%{--</form>--}%
-		%{--</div>--}%
-	%{--</div>--}%
+%{--<div class="row">--}%
+%{--<div class="span4 offset4 well">--}%
+%{--<legend>Please Sign In</legend>--}%
+%{--<div class="alert alert-error">--}%
+%{--<a class="close" data-dismiss="alert" href="#">×</a>Incorrect Username or Password!--}%
+%{--</div>--}%
+%{--<form method="POST" action="" accept-charset="UTF-8">--}%
+%{--<input type="text" id="username" class="span4" name="username" placeholder="Username">--}%
+%{--<input type="password" id="password" class="span4" name="password" placeholder="Password">--}%
+%{--<label class="checkbox">--}%
+%{--<input type="checkbox" name="remember" value="1"> Remember Me--}%
+%{--</label>--}%
+%{--<button type="submit" name="submit" class="btn btn-info btn-block">Sign in</button>--}%
+%{--</form>--}%
+%{--</div>--}%
+%{--</div>--}%
 %{--</div>--}%
 
 
@@ -123,10 +133,10 @@
 </div>
 -->
 %{--<div class="container">--}%
-    %{--<form class="well form-inline" method="post">--}%
-        %{--<input type="text" class="span10" placeholder="Ссылка на новость" name="new_link">--}%
-        %{--<button type="submit" class="btn">Добавить</button>--}%
-    %{--</form>--}%
+%{--<form class="well form-inline" method="post">--}%
+%{--<input type="text" class="span10" placeholder="Ссылка на новость" name="new_link">--}%
+%{--<button type="submit" class="btn">Добавить</button>--}%
+%{--</form>--}%
 %{--</div>--}%
 </body>
 </html>
