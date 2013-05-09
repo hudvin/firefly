@@ -67,5 +67,6 @@ grails.project.dependency.resolution = {
         compile ":jquery-ui:1.8.7"
         compile ":famfamfam:1.0"
         compile ":spring-security-eventlog:0.2"
+        runtime ":mysql-connectorj:5.1.22.1"
     }
 }
