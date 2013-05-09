@@ -94,7 +94,7 @@ log4j = {
 grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.firefly.ui.Account'
 grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.firefly.ui.AccountRole'
 grails.plugins.springsecurity.authority.className = 'com.firefly.ui.Role'
-
+grails.plugins.springsecurity.ui.password.validationRegex = '^.*'
 
 grails {
    mail {
