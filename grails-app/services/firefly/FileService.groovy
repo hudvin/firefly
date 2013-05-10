@@ -56,7 +56,6 @@ class FileService implements InitializingBean {
                 def paper = new Paper(gfsId: gfsFile.getId().toString(), filename: gfsFile.filename, filesize: gfsFile.length)
                 paper.save(failOnError: true)
             } else {
-
                 println("found")
             }
             def defaultTag =  Tag.findByLabel("new")
@@ -68,10 +67,6 @@ class FileService implements InitializingBean {
                 paperHandler.addToTags(defaultTag)
                 paperHandler.save(failOnError: true)
             }
-            println(paperHandler)
-
-        //    Account.get(0).paperHandler.find
-
             return gfsFile
         } catch (Exception ex) {
             ex.printStackTrace()

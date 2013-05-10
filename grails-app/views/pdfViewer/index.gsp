@@ -46,7 +46,7 @@ limitations under the License.
     <script type="text/javascript"  src="${resource(dir: 'pdfjs/web', file: 'viewer.js')}" ></script>
 
     <script language = 'javascript'>
-        var outerdata = "http://localhost:8080/firefly/uploader/file?id=51744c4dccf2c2cd53f61160";
+        var outerdata = '${createLink(controller: 'uploader' , action:'file', params: ['fileid':params.fileid])}';
     </script>
 
 

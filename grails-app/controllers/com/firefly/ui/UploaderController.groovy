@@ -17,7 +17,7 @@ class UploaderController {
             //return file handler
             def file = fileService.saveFile(mpr.getFile(it))
 
-            result << [url: "http://localhost:8080/firefly/uploader/file?id=" + file.id, name: file.filename,
+            result << [url: "http://localhost:8080/firefly/uploader/file?fileid=" + file.id, name: file.filename,
                     size: file.length, delete_url: "http://localhost:8080/firefly/delete",
                     delete_type: "DELETE"]
         }
@@ -29,12 +29,13 @@ class UploaderController {
     }
 
     def file = {
-        def filename = params.id
+        def filename = params.fileid
         println filename
         def file = fileService.retrieveFile(filename)
         if (file != null) {
-            response.outputStream << file.getInputStream()
             response.contentType = file.getContentType()
+            response.setHeader "Content-disposition", "attachment; filename=\"${filename}\"";
+            response.outputStream << file.getInputStream()
         } else render "File not found"
     }
 
