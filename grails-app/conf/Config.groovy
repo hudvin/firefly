@@ -98,6 +98,12 @@ grails.plugins.springsecurity.ui.password.validationRegex = '^.*'
 grails.plugins.springsecurity.logout.afterLogoutUrl = '/index'
 grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/index'
 
+grails.plugins.springsecurity.securityConfigType = 'InterceptUrlMap'
+grails.plugins.springsecurity.interceptUrlMap = [
+        '/*':        ['IS_AUTHENTICATED_ANONYMOUSLY'],
+        '/uploader/*':               ['IS_AUTHENTICATED_FULLY']
+]
+
 grails {
    mail {
      host = "localhost"
