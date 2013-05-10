@@ -219,6 +219,6 @@
 <!-- The main application script -->
 <script src="${resource(dir: 'jupl/js/', file: 'main.js')}"></script>
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
-<!--[if gte IE 8]><script src="${resource(dir: 'jupl/js/core', file: 'jquery.xdr-transport.js')}"></script><![endif]-->
+<!--[if gte IE 8]><script src="${resource(dir: 'jupl/js/cors', file: 'jquery.xdr-transport.js')}"></script><![endif]-->
 </body>
 </html>
