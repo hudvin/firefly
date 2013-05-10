@@ -1,6 +1,9 @@
 package firefly
 
+import com.firefly.ui.Account
 import com.firefly.ui.Paper
+import com.firefly.ui.PaperHandler
+import com.firefly.ui.Tag
 import com.mongodb.BasicDBObject
 import com.mongodb.Mongo
 import com.mongodb.gridfs.GridFS
@@ -12,6 +15,8 @@ import org.springframework.beans.factory.InitializingBean
 class FileService implements InitializingBean {
 
     def grailsApplication
+
+    def springSecurityService
 
     def mongoSettings
 
@@ -49,10 +54,24 @@ class FileService implements InitializingBean {
                 println("not found")
                 gfsFile = save(inputStream, contentType, filename)
                 def paper = new Paper(gfsId: gfsFile.getId().toString(), filename: gfsFile.filename, filesize: gfsFile.length)
-                paper.save(true, failOnError: true)
+                paper.save(failOnError: true)
             } else {
+
                 println("found")
             }
+            def defaultTag =  Tag.findByLabel("new")
+            def currentAccount = springSecurityService.currentUser.asType(Account)
+            def paper = Paper.findByGfsId(gfsFile.id.toString())
+            def paperHandler =  PaperHandler.findByAccountAndPaper(currentAccount,paper)
+            if(paperHandler==null){
+                paperHandler = new PaperHandler(account: currentAccount, paper:paper)
+                paperHandler.addToTags(defaultTag)
+                paperHandler.save(failOnError: true)
+            }
+            println(paperHandler)
+
+        //    Account.get(0).paperHandler.find
+
             return gfsFile
         } catch (Exception ex) {
             ex.printStackTrace()

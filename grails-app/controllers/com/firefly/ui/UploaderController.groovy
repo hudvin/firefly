@@ -14,6 +14,7 @@ class UploaderController {
         Collection result = []
         MultipartHttpServletRequest mpr = (MultipartHttpServletRequest) request;
         mpr.getFileNames().each {
+            //return file handler
             def file = fileService.saveFile(mpr.getFile(it))
 
             result << [url: "http://localhost:8080/firefly/uploader/file?id=" + file.id, name: file.filename,

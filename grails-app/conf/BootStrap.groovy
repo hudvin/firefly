@@ -1,6 +1,7 @@
 import com.firefly.ui.Account
 import com.firefly.ui.AccountRole
 import com.firefly.ui.Role
+import com.firefly.ui.Tag
 
 class BootStrap {
 
@@ -21,6 +22,9 @@ class BootStrap {
                 AccountRole.create account, adminRole
             }
         }
+
+        def tag = new Tag(createdBy: adminUser, label: "new").save(failOnError: true)
+
     }
     def destroy = {
     }
