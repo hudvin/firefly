@@ -1,11 +1,14 @@
-package firefly
+package com.firefly.ui
 
+import firefly.FileService
 import grails.converters.JSON
 import org.springframework.web.multipart.MultipartHttpServletRequest
 
 class UploaderController {
 
     FileService fileService
+
+
 
     def upload = {
         Collection result = []
