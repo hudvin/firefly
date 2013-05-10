@@ -11,7 +11,10 @@ class Account {
 	boolean accountLocked
 	boolean passwordExpired
 
-	static constraints = {
+    static hasMany = [paperHandler: PaperHandler]
+
+
+    static constraints = {
 		username blank: false, unique: true
 		password blank: false
 	}

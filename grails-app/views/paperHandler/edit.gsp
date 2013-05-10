@@ -1,13 +1,13 @@
-<%@ page import="com.firefly.ui.List" %>
+<%@ page import="com.firefly.ui.PaperHandler" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name="layout" content="main">
-		<g:set var="entityName" value="${message(code: 'list.label', default: 'List')}" />
+		<g:set var="entityName" value="${message(code: 'paperHandler.label', default: 'PaperHandler')}" />
 		<title><g:message code="default.edit.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#edit-list" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		<a href="#edit-paperHandler" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -15,21 +15,21 @@
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div>
-		<div id="edit-list" class="content scaffold-edit" role="main">
+		<div id="edit-paperHandler" class="content scaffold-edit" role="main">
 			<h1><g:message code="default.edit.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
-			<g:hasErrors bean="${listInstance}">
+			<g:hasErrors bean="${paperHandlerInstance}">
 			<ul class="errors" role="alert">
-				<g:eachError bean="${listInstance}" var="error">
+				<g:eachError bean="${paperHandlerInstance}" var="error">
 				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
 			<g:form method="post" >
-				<g:hiddenField name="id" value="${listInstance?.id}" />
-				<g:hiddenField name="version" value="${listInstance?.version}" />
+				<g:hiddenField name="id" value="${paperHandlerInstance?.id}" />
+				<g:hiddenField name="version" value="${paperHandlerInstance?.version}" />
 				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>

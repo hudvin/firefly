@@ -68,6 +68,17 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${accountInstance?.paperHandler}">
+				<li class="fieldcontain">
+					<span id="paperHandler-label" class="property-label"><g:message code="account.paperHandler.label" default="Paper Handler" /></span>
+					
+						<g:each in="${accountInstance.paperHandler}" var="p">
+						<span class="property-value" aria-labelledby="paperHandler-label"><g:link controller="paperHandler" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></span>
+						</g:each>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${accountInstance?.passwordExpired}">
 				<li class="fieldcontain">
 					<span id="passwordExpired-label" class="property-label"><g:message code="account.passwordExpired.label" default="Password Expired" /></span>

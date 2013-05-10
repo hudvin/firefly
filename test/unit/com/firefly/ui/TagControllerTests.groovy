@@ -5,9 +5,9 @@ package com.firefly.ui
 import org.junit.*
 import grails.test.mixin.*
 
-@TestFor(ListController)
-@Mock(List)
-class ListControllerTests {
+@TestFor(TagController)
+@Mock(Tag)
+class TagControllerTests {
 
     def populateValidParams(params) {
         assert params != null
@@ -17,139 +17,139 @@ class ListControllerTests {
 
     void testIndex() {
         controller.index()
-        assert "/list/list" == response.redirectedUrl
+        assert "/tag/list" == response.redirectedUrl
     }
 
     void testList() {
 
         def model = controller.list()
 
-        assert model.listInstanceList.size() == 0
-        assert model.listInstanceTotal == 0
+        assert model.tagInstanceList.size() == 0
+        assert model.tagInstanceTotal == 0
     }
 
     void testCreate() {
         def model = controller.create()
 
-        assert model.listInstance != null
+        assert model.tagInstance != null
     }
 
     void testSave() {
         controller.save()
 
-        assert model.listInstance != null
-        assert view == '/list/create'
+        assert model.tagInstance != null
+        assert view == '/tag/create'
 
         response.reset()
 
         populateValidParams(params)
         controller.save()
 
-        assert response.redirectedUrl == '/list/show/1'
+        assert response.redirectedUrl == '/tag/show/1'
         assert controller.flash.message != null
-        assert List.count() == 1
+        assert Tag.count() == 1
     }
 
     void testShow() {
         controller.show()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/list/list'
+        assert response.redirectedUrl == '/tag/list'
 
         populateValidParams(params)
-        def list = new List(params)
+        def tag = new Tag(params)
 
-        assert list.save() != null
+        assert tag.save() != null
 
-        params.id = list.id
+        params.id = tag.id
 
         def model = controller.show()
 
-        assert model.listInstance == list
+        assert model.tagInstance == tag
     }
 
     void testEdit() {
         controller.edit()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/list/list'
+        assert response.redirectedUrl == '/tag/list'
 
         populateValidParams(params)
-        def list = new List(params)
+        def tag = new Tag(params)
 
-        assert list.save() != null
+        assert tag.save() != null
 
-        params.id = list.id
+        params.id = tag.id
 
         def model = controller.edit()
 
-        assert model.listInstance == list
+        assert model.tagInstance == tag
     }
 
     void testUpdate() {
         controller.update()
 
         assert flash.message != null
-        assert response.redirectedUrl == '/list/list'
+        assert response.redirectedUrl == '/tag/list'
 
         response.reset()
 
         populateValidParams(params)
-        def list = new List(params)
+        def tag = new Tag(params)
 
-        assert list.save() != null
+        assert tag.save() != null
 
         // test invalid parameters in update
-        params.id = list.id
+        params.id = tag.id
         //TODO: add invalid values to params object
 
         controller.update()
 
-        assert view == "/list/edit"
-        assert model.listInstance != null
+        assert view == "/tag/edit"
+        assert model.tagInstance != null
 
-        list.clearErrors()
+        tag.clearErrors()
 
         populateValidParams(params)
         controller.update()
 
-        assert response.redirectedUrl == "/list/show/$list.id"
+        assert response.redirectedUrl == "/tag/show/$tag.id"
         assert flash.message != null
 
         //test outdated version number
         response.reset()
-        list.clearErrors()
+        tag.clearErrors()
 
         populateValidParams(params)
-        params.id = list.id
+        params.id = tag.id
         params.version = -1
         controller.update()
 
-        assert view == "/list/edit"
-        assert model.listInstance != null
-        assert model.listInstance.errors.getFieldError('version')
+        assert view == "/tag/edit"
+        assert model.tagInstance != null
+        assert model.tagInstance.errors.getFieldError('version')
         assert flash.message != null
     }
 
     void testDelete() {
         controller.delete()
         assert flash.message != null
-        assert response.redirectedUrl == '/list/list'
+        assert response.redirectedUrl == '/tag/list'
 
         response.reset()
 
         populateValidParams(params)
-        def list = new List(params)
+        def tag = new Tag(params)
 
-        assert list.save() != null
-        assert List.count() == 1
+        assert tag.save() != null
+        assert Tag.count() == 1
 
-        params.id = list.id
+        params.id = tag.id
 
         controller.delete()
 
-        assert List.count() == 0
-        assert List.get(list.id) == null
-        assert response.redirectedUrl == '/list/list'
+        assert Tag.count() == 0
+        assert Tag.get(tag.id) == null
+        assert response.redirectedUrl == '/tag/list'
     }
 }

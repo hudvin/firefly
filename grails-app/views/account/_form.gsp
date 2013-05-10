@@ -42,6 +42,23 @@
 	<g:checkBox name="enabled" value="${accountInstance?.enabled}" />
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'paperHandler', 'error')} ">
+	<label for="paperHandler">
+		<g:message code="account.paperHandler.label" default="Paper Handler" />
+		
+	</label>
+	
+<ul class="one-to-many">
+<g:each in="${accountInstance?.paperHandler?}" var="p">
+    <li><g:link controller="paperHandler" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
+</g:each>
+<li class="add">
+<g:link controller="paperHandler" action="create" params="['account.id': accountInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'paperHandler.label', default: 'PaperHandler')])}</g:link>
+</li>
+</ul>
+
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'passwordExpired', 'error')} ">
 	<label for="passwordExpired">
 		<g:message code="account.passwordExpired.label" default="Password Expired" />
