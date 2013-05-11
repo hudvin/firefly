@@ -15,15 +15,32 @@
 
 <body>
 
-<g:each in="${paperHandler}">
-    <p>Title: ${it.paper.filename}</p>
-    <p>Tags: ${it.tags}</p>
+<div class="row-fluid">
+    <div class="span10" style="padding-top: 60px">
+        <g:each in="${paperHandler}">
 
-    <g:link controller="pdfViewer" action="index" params="[fileid: it.paper.gfsId]" >View</g:link>
-    <g:link controller="uploader" action="file" params="[fileid: it.paper.gfsId]" >Download</g:link>
+             <hr/>
+            <span class="label label-success">Filename:</span>
+            <p class="label">${it.paper.filename}</p>
+            </br>
+
+            <span class="label label-success">size:</span>
+            <p class="label">${formatNumber(number:it.paper.filesize/(1024*1024), maxFractionDigits: 2)} MB</p>
+            </br>
 
 
-</g:each>
+            <span class="label label-success">Tags:</span>
+            <p class="label">${it.tags}</p>
 
+            <br/>
+            <a href="${createLink(controller: 'uploader', action: 'file', params: [fileid: it.paper.gfsId])}"
+               class="btn btn-small">Download</a>
+            <a href="${createLink(controller: 'pdfViewer', action: 'index', params: [fileid: it.paper.gfsId])}"
+               class="btn btn-small">View</a>
+
+        </g:each>
+
+    </div>
+</div>
 </body>
 </html>
