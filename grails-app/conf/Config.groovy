@@ -103,7 +103,8 @@ grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/index'
 grails.plugins.springsecurity.securityConfigType = 'InterceptUrlMap'
 grails.plugins.springsecurity.interceptUrlMap = [
         '/*':        ['IS_AUTHENTICATED_ANONYMOUSLY'],
-        '/uploader/*':               ['IS_AUTHENTICATED_FULLY']
+        '/uploader/*':               ['IS_AUTHENTICATED_FULLY'],
+        '/index/listPapers':               ['IS_AUTHENTICATED_FULLY']
 ]
 
 grails {
