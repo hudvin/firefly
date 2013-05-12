@@ -83,6 +83,21 @@
         iterate(function(ulElem){
             $('#' + ulElem.id).tagit({
                 allowSpaces: true,
+                beforeTagRemoved: function (event, ui) {
+                    var tag = ui.tagLabel;
+                    //sent it to server
+                    // do something special
+                    console.log(ui.tagLabel);
+                    var saveData = $.ajax({
+                        type: 'GET',
+                        url: "${createLink(controller: 'uploader',action: 'removeTag')}",
+                        data: {tag: tag, "paperHandlerId": ulElem.id},
+                        dataType: "text",
+                        success: function (resultData) {
+                            console.log("tag removed")
+                        }
+                    });
+                },
                 beforeTagAdded: function (event, ui) {
                     var tag = ui.tagLabel;
                     //sent it to server

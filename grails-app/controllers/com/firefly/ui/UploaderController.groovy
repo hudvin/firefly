@@ -44,7 +44,19 @@ class UploaderController {
     def index() {}
 
 
+    def removeTag(){
+        println(params)
+        def paperHandlerId = params.paperHandlerId
+        def tagLabel = params.tag
+        def paperHandler = PaperHandler.get(paperHandlerId)
+        def savedTag = Tag.findByLabel(tagLabel)
+        paperHandler.removeFromTags(savedTag)
+        paperHandler.save(failOnError: true)
+        render(status: 200)
+    }
+
     def addTag() {
+        println(params)
         def paperHandlerId = params.paperHandlerId
         def tagLabel = params.tag
         def paperHandler = PaperHandler.get(paperHandlerId)
@@ -57,9 +69,7 @@ class UploaderController {
             paperHandler.addToTags(savedTag)
             paperHandler.save(failOnError: true)
         }
-        println(params)
         render(status: 200)
-
     }
 
 }
