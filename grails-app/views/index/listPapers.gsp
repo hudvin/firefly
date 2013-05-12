@@ -19,24 +19,11 @@
 <div class="row-fluid">
     <div class="span10" style="padding-top: 60px">
         <g:each in="${paperHandler}">
-
             <hr/>
-
-            %{--<script>--}%
-                %{--$(function () {--}%
-                    %{--$('#${it.paper.id}').tagit({--}%
-                        %{--allowSpaces: true--}%
-                    %{--});--}%
-
-                %{--});--}%
-            %{--</script>--}%
-
-
-
             <div id="wrapper">
-                <div id="content">
-          <form>
-          <ul type="tag_input" id="${it.paper.id}">
+                      <div id="content">
+                <form>
+                <ul type="tag_input" id="${it.paper.id}">
             <g:each var="tag" in="${it.tags}">
                 <li>${tag.label}</li>
             </g:each>
@@ -72,23 +59,50 @@
     </div>
     </div>
 
-<script>
+    <script>
 
-    var ulList = document.getElementsByTagName('ul');
-    for (var i=0;i<ulList.length;i++){
-       var ulElem = ulList[i];
-        if(ulElem.getAttribute('type', 0)=="tag_input"){
-               var currentId =
-                $('#'+ulElem.id).tagit({
-                    allowSpaces: true
-                });
 
+        function iterate(action) {
+            var ulList = document.getElementsByTagName('ul');
+            for (var i = 0; i < ulList.length; i++) {
+                var ulElem = ulList[i];
+                if (ulElem.getAttribute('type', 0) == "tag_input") {
+                    action(ulElem)
+
+                }
+            }
         }
 
-    }
+        iterate(function(ulElem){
+            $('#' + ulElem.id).tagit({
+                allowSpaces: true
+            });
+        })
 
 
-</script>
+        iterate(function(ulElem){
+            $('#' + ulElem.id).tagit({
+                allowSpaces: true,
+                beforeTagAdded: function (event, ui) {
+                    var tag = ui.tagLabel;
+                    //sent it to server
+                    // do something special
+                    console.log(ui.tagLabel);
+                    var saveData = $.ajax({
+                        type: 'POST',
+                        url: "${createLink(controller: 'uploader',action: 'addTag')}",
+                        data: {tag: tag, "value": "some value", "paperId": ulElem.id},
+                        dataType: "text",
+                        success: function (resultData) {
+                            console.log("Save Complete")
+                        }
+                    });
+                }
+            });
+        })
+
+
+    </script>
 
 </body>
 </html>

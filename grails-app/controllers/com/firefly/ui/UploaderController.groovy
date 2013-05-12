@@ -41,4 +41,12 @@ class UploaderController {
 
 
     def index() {}
+
+
+    def addTag(){
+        println(params)
+        render(status: 200)
+
+    }
+
 }
