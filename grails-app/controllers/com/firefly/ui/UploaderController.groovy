@@ -8,6 +8,7 @@ class UploaderController {
 
     FileService fileService
 
+    def springSecurityService
 
 
     def upload = {
@@ -43,7 +44,19 @@ class UploaderController {
     def index() {}
 
 
-    def addTag(){
+    def addTag() {
+        def paperHandlerId = params.paperHandlerId
+        def tagLabel = params.tag
+        def paperHandler = PaperHandler.get(paperHandlerId)
+        def savedTag = Tag.findByLabel(tagLabel)
+        if (savedTag == null) {
+            def currentAccount = springSecurityService.currentUser.asType(Account)
+            savedTag = new Tag(label: tagLabel, createdBy: currentAccount).save(failOnError: true)
+        }
+        if (!paperHandler.getTags().contains(savedTag)) {
+            paperHandler.addToTags(savedTag)
+            paperHandler.save(failOnError: true)
+        }
         println(params)
         render(status: 200)
 

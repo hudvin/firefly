@@ -23,7 +23,7 @@
             <div id="wrapper">
                       <div id="content">
                 <form>
-                <ul type="tag_input" id="${it.paper.id}">
+                <ul type="tag_input" id="${it.id}">
             <g:each var="tag" in="${it.tags}">
                 <li>${tag.label}</li>
             </g:each>
@@ -91,7 +91,7 @@
                     var saveData = $.ajax({
                         type: 'POST',
                         url: "${createLink(controller: 'uploader',action: 'addTag')}",
-                        data: {tag: tag, "value": "some value", "paperId": ulElem.id},
+                        data: {tag: tag, "paperHandlerId": ulElem.id},
                         dataType: "text",
                         success: function (resultData) {
                             console.log("Save Complete")
