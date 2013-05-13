@@ -54,6 +54,9 @@
             <a href="${createLink(controller: 'pdfViewer', action: 'index', params: [fileid: it.paper.gfsId])}"
                class="btn btn-small">View</a>
 
+            <a href="${createLink(controller: 'note', action: 'editor', params: [fileid: it.paper.gfsId])}"
+               class="btn btn-small">Note</a>
+
         </g:each>
 
     </div>
