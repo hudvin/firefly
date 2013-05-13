@@ -32,6 +32,15 @@
 				</li>
 				</g:if>
 			
+				<g:if test="${paperHandlerInstance?.note}">
+				<li class="fieldcontain">
+					<span id="note-label" class="property-label"><g:message code="paperHandler.note.label" default="Note" /></span>
+					
+						<span class="property-value" aria-labelledby="note-label"><g:fieldValue bean="${paperHandlerInstance}" field="note"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${paperHandlerInstance?.paper}">
 				<li class="fieldcontain">
 					<span id="paper-label" class="property-label"><g:message code="paperHandler.paper.label" default="Paper" /></span>

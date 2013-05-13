@@ -26,6 +26,8 @@
 					
 						<th><g:message code="paperHandler.account.label" default="Account" /></th>
 					
+						<g:sortableColumn property="note" title="${message(code: 'paperHandler.note.label', default: 'Note')}" />
+					
 						<th><g:message code="paperHandler.paper.label" default="Paper" /></th>
 					
 					</tr>
@@ -35,6 +37,8 @@
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
 						<td><g:link action="show" id="${paperHandlerInstance.id}">${fieldValue(bean: paperHandlerInstance, field: "account")}</g:link></td>
+					
+						<td>${fieldValue(bean: paperHandlerInstance, field: "note")}</td>
 					
 						<td>${fieldValue(bean: paperHandlerInstance, field: "paper")}</td>
 					

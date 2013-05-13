@@ -9,6 +9,11 @@ class PaperHandler {
     static constraints = {
     }
 
+    String note
+
+    static mapping = {
+        note type: 'text'
+    }
 
 
     String toString() {

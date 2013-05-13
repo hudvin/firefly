@@ -10,6 +10,14 @@
 	<g:select id="account" name="account.id" from="${com.firefly.ui.Account.list()}" optionKey="id" required="" value="${paperHandlerInstance?.account?.id}" class="many-to-one"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: paperHandlerInstance, field: 'note', 'error')} ">
+	<label for="note">
+		<g:message code="paperHandler.note.label" default="Note" />
+		
+	</label>
+	<g:textField name="note" value="${paperHandlerInstance?.note}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: paperHandlerInstance, field: 'paper', 'error')} required">
 	<label for="paper">
 		<g:message code="paperHandler.paper.label" default="Paper" />
