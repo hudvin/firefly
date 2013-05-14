@@ -21,7 +21,8 @@
     <div class="span10" style="padding-top: 60px">
 
         <script type="text/javascript">
-            tinymce.init({
+            tinyMCE.init({
+                editor_selector: 'textarea',
                 selector: "textarea",
                 theme: "modern",
                 plugins: [
@@ -32,11 +33,32 @@
                 ],
                 save_enablewhendirty: true,
                 save_onsavecallback: function () {
-                    alert(tinyMCE.activeEditor.getContent());
+                    var content = tinyMCE.activeEditor.getContent();
+
+                    var saveData = $.ajax({
+                        type: 'POST',
+                        url: "${createLink(controller: 'note',action: 'save')}",
+                        data: {text: content, "paperHandlerId": ${paperHandlerId}},
+                        dataType: "text",
+                        success: function (resultData) {
+                            console.log("saved on server")
+                        }
+                    });
+
 
                 },
                 toolbar: "save undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                oninit: function () {
 
+                    $.ajax({
+                        url: "${createLink(controller: 'note', action: 'getContent', params: [paperHandlerId:paperHandlerId])}",
+                        type: 'GET',
+                        dataType: 'text',
+                        success: function (data) {
+                            tinyMCE.get('content').setContent(data);
+                        }
+                    });
+                }
             });
         </script>
 
