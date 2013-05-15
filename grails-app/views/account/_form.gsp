@@ -18,6 +18,14 @@
 	<g:textField name="password" required="" value="${accountInstance?.password}"/>
 </div>
 
+<div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'interests', 'error')} ">
+	<label for="interests">
+		<g:message code="account.interests.label" default="Interests" />
+		
+	</label>
+	<g:textArea name="interests" cols="40" rows="5" value="${accountInstance?.interests}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: accountInstance, field: 'accountExpired', 'error')} ">
 	<label for="accountExpired">
 		<g:message code="account.accountExpired.label" default="Account Expired" />

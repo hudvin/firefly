@@ -23,20 +23,20 @@
 			</g:if>
 			<ol class="property-list paperHandler">
 			
-				<g:if test="${paperHandlerInstance?.account}">
-				<li class="fieldcontain">
-					<span id="account-label" class="property-label"><g:message code="paperHandler.account.label" default="Account" /></span>
-					
-						<span class="property-value" aria-labelledby="account-label"><g:link controller="account" action="show" id="${paperHandlerInstance?.account?.id}">${paperHandlerInstance?.account?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${paperHandlerInstance?.note}">
 				<li class="fieldcontain">
 					<span id="note-label" class="property-label"><g:message code="paperHandler.note.label" default="Note" /></span>
 					
 						<span class="property-value" aria-labelledby="note-label"><g:fieldValue bean="${paperHandlerInstance}" field="note"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${paperHandlerInstance?.account}">
+				<li class="fieldcontain">
+					<span id="account-label" class="property-label"><g:message code="paperHandler.account.label" default="Account" /></span>
+					
+						<span class="property-value" aria-labelledby="account-label"><g:link controller="account" action="show" id="${paperHandlerInstance?.account?.id}">${paperHandlerInstance?.account?.encodeAsHTML()}</g:link></span>
 					
 				</li>
 				</g:if>

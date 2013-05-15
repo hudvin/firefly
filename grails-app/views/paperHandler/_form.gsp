@@ -2,20 +2,20 @@
 
 
 
+<div class="fieldcontain ${hasErrors(bean: paperHandlerInstance, field: 'note', 'error')} ">
+	<label for="note">
+		<g:message code="paperHandler.note.label" default="Note" />
+		
+	</label>
+	<g:textArea name="note" cols="40" rows="5" value="${paperHandlerInstance?.note}"/>
+</div>
+
 <div class="fieldcontain ${hasErrors(bean: paperHandlerInstance, field: 'account', 'error')} required">
 	<label for="account">
 		<g:message code="paperHandler.account.label" default="Account" />
 		<span class="required-indicator">*</span>
 	</label>
 	<g:select id="account" name="account.id" from="${com.firefly.ui.Account.list()}" optionKey="id" required="" value="${paperHandlerInstance?.account?.id}" class="many-to-one"/>
-</div>
-
-<div class="fieldcontain ${hasErrors(bean: paperHandlerInstance, field: 'note', 'error')} ">
-	<label for="note">
-		<g:message code="paperHandler.note.label" default="Note" />
-		
-	</label>
-	<g:textField name="note" value="${paperHandlerInstance?.note}"/>
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: paperHandlerInstance, field: 'paper', 'error')} required">

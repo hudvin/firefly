@@ -7,6 +7,7 @@ class PaperHandler {
     static hasMany = [tags: Tag]
 
     static constraints = {
+        note widget: 'textarea'
     }
 
     String note
@@ -14,7 +15,6 @@ class PaperHandler {
     static mapping = {
         note type: 'text'
     }
-
 
     String toString() {
         return "account: $account, paper: $paper"

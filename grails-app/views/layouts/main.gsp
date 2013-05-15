@@ -59,8 +59,10 @@
                     <li><a href="#about">About</a></li>
 
                     <sec:ifLoggedIn>
+                        <g:set var="accountId" value="${sec.loggedInUserInfo(field: 'id')}"/>
                         <li><g:link controller="uploader" action="index">Download</g:link></li>
                         <li><g:link controller="index" action="listPapers">My Papers</g:link></li>
+                        <li><g:link  controller="account" action="show" id="${accountId}">My Profile</g:link></li>
                     </sec:ifLoggedIn>
 
                     <li><a href="#contact">Contact</a></li>
