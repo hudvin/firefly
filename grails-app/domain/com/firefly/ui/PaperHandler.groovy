@@ -7,7 +7,7 @@ class PaperHandler {
     static hasMany = [tags: Tag]
 
     static constraints = {
-        note widget: 'textarea'
+        note widget: 'textarea', nullable: true
     }
 
     String note

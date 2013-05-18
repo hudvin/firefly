@@ -19,7 +19,7 @@ class Account {
     static constraints = {
         username blank: false, unique: true
         password blank: false
-        interests widget: 'textarea'
+        interests widget: 'textarea', blank: true, nullable: true
     }
 
     static mapping = {
