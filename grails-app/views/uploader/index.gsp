@@ -82,7 +82,7 @@
                 <span class="btn btn-success fileinput-button">
                     <i class="icon-plus icon-white"></i>
                     <span>Add files...</span>
-                    <input type="file" name="files[]" multiple>
+                    <input type="file" name="files[]" accept="application/pdf" multiple>
                 </span>
                 <button type="submit" class="btn btn-primary start">
                     <i class="icon-upload icon-white"></i>
