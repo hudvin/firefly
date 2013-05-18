@@ -1,1 +1,15 @@
 http://techiewritersblock.wordpress.com/2013/01/23/spring-core-security-plugin-how-to-add-custom-fields/
+
+http://www.w3.org/wiki/DataSetRDFDumps
+http://www.cs.purdue.edu/commugrate/data/citeseer/ !!!!!
+http://www.autonlab.org/autonweb/17433
+http://books.google.com.ua/books?id=sksxwnUpiF0C&pg=PA304&lpg=PA304&dq=citeseer+dataset+download&source=bl&ots=TdDFXsCs44&sig=BbYDbg3GI1b98GzDi4itW6KcoIo&hl=en&sa=X&ei=UOmTUYNPyYg4yfmA2As&ved=0CFAQ6AEwBTgK#v=onepage&q=citeseer%20dataset%20download&f=false
+http://www.w3.org/wiki/TaskForces/CommunityProjects/LinkingOpenData/DataSets
+http://www.w3.org/wiki/DataSetRDFDumps
+http://denigma.de/data/entry/linked-open-data
+http://datahub.io/dataset/rkb-explorer-citeseer/resource/5f01580e-9c49-4928-a73c-c0884201ab0b
+http://dblp.l3s.de/d2r/
+http://www.iesl.cs.umass.edu/data/bibtex
+http://www.kde.cs.uni-kassel.de/bibsonomy/dumps/
+http://www.cs.purdue.edu/commugrate/data_access/all_data_sets.php
+
