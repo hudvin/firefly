@@ -7,11 +7,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest
 
 class UploaderController {
 
-    FileService fileService
-
+    def FileService fileService
     def springSecurityService
-
-    TagsService tagsService
+    def TagsService tagsService
+    def grailsLinkGenerator
 
 
     def upload = {
@@ -19,23 +18,26 @@ class UploaderController {
         MultipartHttpServletRequest mpr = (MultipartHttpServletRequest) request;
         def currentAccount = springSecurityService.currentUser.asType(Account)
         def tags = request.getParameterValues("tags")
-        if(tags.length==0){
-            tags<<"new"
+        if (tags.length == 0) {
+            tags << "new"
         }
 
         mpr.getFileNames().each {
             //return file handler
             def file = fileService.saveFile(mpr.getFile(it))
-             //TODO migration on absolute link!!!
-            result << [url: "http://localhost:8080/firefly/uploader/file?fileid=" + file.id, name: file.filename,
-                    size: file.length, delete_url: "http://localhost:8080/firefly/delete",
+            //TODO migration on absolute link!!!
+
+            def fileLink = grailsLinkGenerator.link(controller: 'uploader', action: 'file', params: ['fileid': file.id], absolute: true)
+            def deleteLink = grailsLinkGenerator.link(controller: 'uploader', action: '/', params: ['fileid': file.id], absolute: true)
+            result << [url: fileLink, name: file.filename,
+                    size: file.length, delete_url: deleteLink,
                     delete_type: "DELETE"]
 
             def paper = Paper.findByGfsId(file.id.toString())
-            def paperHandler =  PaperHandler.findByAccountAndPaper(currentAccount,paper)
+            def paperHandler = PaperHandler.findByAccountAndPaper(currentAccount, paper)
 
             tags.each {
-                 tagsService.addTag(paperHandler.id,it)
+                tagsService.addTag(paperHandler.id, it)
             }
 
         }
@@ -63,11 +65,11 @@ class UploaderController {
     def index() {}
 
 
-    def removeTag(){
+    def removeTag() {
         log.info(params)
         def paperHandlerId = params.paperHandlerId
         def tagLabel = params.tag
-        tagsService.removeTag(paperHandlerId,tagLabel)
+        tagsService.removeTag(paperHandlerId, tagLabel)
         render(status: 200)
     }
 
@@ -75,7 +77,7 @@ class UploaderController {
         log.info(params)
         def paperHandlerId = params.paperHandlerId
         def tagLabel = params.tag
-        tagsService.addTag(paperHandlerId,tagLabel)
+        tagsService.addTag(paperHandlerId, tagLabel)
         render(status: 200)
     }
 
