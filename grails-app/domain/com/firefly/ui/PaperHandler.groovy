@@ -10,7 +10,7 @@ class PaperHandler {
         note widget: 'textarea', nullable: true
     }
 
-    String note
+    String note = ""
 
     static mapping = {
         note type: 'text'
