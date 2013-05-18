@@ -56,7 +56,24 @@
 <div class="container">
     <!-- The file upload form used as target for the file upload widget -->
     <form id="fileupload" method="POST" enctype="multipart/form-data">
-        <!-- Redirect browsers with JavaScript disabled to the origin page -->
+
+
+        <ul class="span5" type="tag_input" id="some">
+                <li>new</li>
+        </ul>
+
+    <script>
+
+
+
+            $('#some').tagit({
+                allowSpaces: true
+            });
+
+
+    </script>
+
+    <!-- Redirect browsers with JavaScript disabled to the origin page -->
         <noscript><input type="hidden" name="redirect" value="http://blueimp.github.com/jQuery-File-Upload/"></noscript>
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
@@ -222,5 +239,16 @@
 <script src="${resource(dir: 'jupl/js/', file: 'main.js')}"></script>
 <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE8+ -->
 <!--[if gte IE 8]><script src="${resource(dir: 'jupl/js/cors', file: 'jquery.xdr-transport.js')}"></script><![endif]-->
+
+<script>
+
+    $('#add_image_upload').fileupload({
+        dataType: 'json',
+        sequentialUploads: true,
+        formData : {name:'thedate',value:"additionaldata"}
+    });
+
+</script>
+
 </body>
 </html>

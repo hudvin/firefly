@@ -58,13 +58,14 @@ class FileService implements InitializingBean {
             } else {
                 println("found")
             }
-            def defaultTag =  Tag.findByLabel("new")
+           // def defaultTag =  Tag.findByLabel("new")
             def currentAccount = springSecurityService.currentUser.asType(Account)
             def paper = Paper.findByGfsId(gfsFile.id.toString())
             def paperHandler =  PaperHandler.findByAccountAndPaper(currentAccount,paper)
             if(paperHandler==null){
                 paperHandler = new PaperHandler(account: currentAccount, paper:paper)
-                paperHandler.addToTags(defaultTag)
+               // paperHandler.addToTags(defaultTag)
+               // paperHandler.setPaper(paper)
                 paperHandler.save(failOnError: true)
             }
             return gfsFile

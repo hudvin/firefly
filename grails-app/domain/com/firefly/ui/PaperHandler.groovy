@@ -10,6 +10,10 @@ class PaperHandler {
         note widget: 'textarea', nullable: true
     }
 
+    PaperHandler(){
+         tags = new ArrayList<Tag>()
+    }
+
     String note = ""
 
     static mapping = {

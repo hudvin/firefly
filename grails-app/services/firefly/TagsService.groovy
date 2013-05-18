@@ -1,11 +1,33 @@
 package firefly
 
-/**
- * Created with IntelliJ IDEA.
- * User: hudvin
- * Date: 5/18/13
- * Time: 3:02 PM
- * To change this template use File | Settings | File Templates.
- */
+import com.firefly.ui.Account
+import com.firefly.ui.PaperHandler
+import com.firefly.ui.Tag
+
 class TagsService {
+
+    def springSecurityService
+
+
+    def removeTag(paperHandlerId,tagLabel){
+        def paperHandler = PaperHandler.get(paperHandlerId)
+        def savedTag = Tag.findByLabel(tagLabel)
+        paperHandler.removeFromTags(savedTag)
+        paperHandler.save(failOnError: true)
+    }
+
+    def addTag(paperHandlerId, tagLabel) {
+        def paperHandler = PaperHandler.get(paperHandlerId)
+        def savedTag = Tag.findByLabel(tagLabel)
+        if (savedTag == null) {
+            def currentAccount = springSecurityService.currentUser.asType(Account)
+            savedTag = new Tag(label: tagLabel, createdBy: currentAccount).save(failOnError: true)
+        }
+        if (!paperHandler.getTags().contains(savedTag)) {
+            paperHandler.addToTags(savedTag)
+            paperHandler.save(failOnError: true)
+        }
+    }
+
+
 }
