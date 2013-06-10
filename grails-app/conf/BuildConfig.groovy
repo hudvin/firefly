@@ -39,9 +39,10 @@ grails.project.dependency.resolution = {
     }
 
     dependencies {
-          runtime "hsqldb:hsqldb:1.8.0.10"
-          runtime 'org.mongodb:mongo-java-driver:2.11.0'
+        runtime "hsqldb:hsqldb:1.8.0.10"
+        runtime 'org.mongodb:mongo-java-driver:2.11.0'
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
+        runtime "com.lowagie:itext:4.2.0"
 
         // runtime 'mysql:mysql-connector-java:5.1.22'
     }

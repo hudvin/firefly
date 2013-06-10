@@ -3,7 +3,7 @@ dataSource {
     driverClassName = "com.mysql.jdbc.Driver"
     dialect = "org.hibernate.dialect.MySQL5InnoDBDialect"
     username = "root"
-    password = "azqwerty"
+    password = "qwerty"
 }
 hibernate {
     cache.use_second_level_cache = true
@@ -15,19 +15,19 @@ environments {
     development {
         dataSource {
             dbCreate = "update" // one of 'create', 'create-drop', 'update', 'validate', ''
-            url = "jdbc:mysql://localhost/firefly?useUnicode=yes&characterEncoding=UTF-8"
+            url = "jdbc:mysql://192.168.56.101/firefly?useUnicode=yes&characterEncoding=UTF-8"
         }
     }
     test {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/firefly?useUnicode=yes&characterEncoding=UTF-8"
+            url = "jdbc:mysql://192.168.56.101/firefly?useUnicode=yes&characterEncoding=UTF-8"
         }
     }
     production {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:mysql://localhost/firefly?useUnicode=yes&characterEncoding=UTF-8"
+            url = "jdbc:mysql://192.168.56.101/firefly?useUnicode=yes&characterEncoding=UTF-8"
             pooled = true
             properties {
                maxActive = -1

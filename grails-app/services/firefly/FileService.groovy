@@ -3,7 +3,7 @@ package firefly
 import com.firefly.ui.Account
 import com.firefly.ui.Paper
 import com.firefly.ui.PaperHandler
-import com.firefly.ui.Tag
+import com.lowagie.text.pdf.PdfReader
 import com.mongodb.BasicDBObject
 import com.mongodb.Mongo
 import com.mongodb.gridfs.GridFS
@@ -42,6 +42,14 @@ class FileService implements InitializingBean {
         //create tmp file and save uploaded file to it
         def tmpFile = File.createTempFile("upload", null);
         IOUtils.copy(inputStream, new FileOutputStream(tmpFile))
+
+        def reader = new PdfReader(new FileInputStream(tmpFile));
+        HashMap map= reader.getInfo();
+        def keys = map.keySet();
+
+        println(map.get("Title"))
+       // println(keys)
+
         //  tmpFile.delete();
         //calculate md5 hash
         def fis = new FileInputStream(tmpFile)

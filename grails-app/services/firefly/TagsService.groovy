@@ -13,7 +13,7 @@ class TagsService {
         def paperHandler = PaperHandler.get(paperHandlerId)
         def savedTag = Tag.findByLabel(tagLabel)
         paperHandler.removeFromTags(savedTag)
-        paperHandler.save(failOnError: true)
+        paperHandler.merge(failOnError: true)
     }
 
     def addTag(paperHandlerId, tagLabel) {
@@ -25,7 +25,7 @@ class TagsService {
         }
         if (!paperHandler.getTags().contains(savedTag)) {
             paperHandler.addToTags(savedTag)
-            paperHandler.save(failOnError: true)
+            paperHandler.merge(failOnError: true)
         }
     }
 

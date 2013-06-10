@@ -63,9 +63,11 @@ grails.resources.adhoc.excludes = ['/js/tiny_mce/**/*.*']
 
 environments {
     development {
+        grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
         grails.logging.jul.usebridge = true
     }
     production {
+        grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
         grails.logging.jul.usebridge = false
         // TODO: grails.serverURL = "http://www.changeme.com"
     }
@@ -109,18 +111,22 @@ grails.plugins.springsecurity.interceptUrlMap = [
 
 grails {
    mail {
-     host = "localhost"
-     port = 25
-     username = "test@test"
-     password = "yourpassword"
-     props = ["mail.smtp.port":"25"]
+//     host = '192.168.56.101'
+//     port = '8823'
+//     username = "test@test"
+//     password = "yourpassword"
+//     props = [
+//             "mail.smtp.port":"8823",
+//             "mail.smtp.host": "192.168.56.101",
+//             "mail.debug":"true"
+//     ]
    }
 }
 grails.plugins.springsecurity.ui.encodePassword=false
 
 mongodb {
-    host="localhost"
-    port=27017
+    host="192.168.56.101"
+    port=25
 	dbName = "firefly_grails"
     bucket = "fs"
 }
